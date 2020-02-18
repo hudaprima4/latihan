@@ -27,6 +27,9 @@
         <!-- DataTables -->
         <link href="<?php echo base_url()?>assets/datatables/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 
+        <!-- sweet alerts -->
+        <link href="<?php echo base_url()?>assets/sweet-alert/sweet-alert.min.css" rel="stylesheet">
+
         <!-- Custom Files -->
         <link href="<?php echo base_url()?>assets/bootstrap/css/helper.css" rel="stylesheet" type="text/css" />
         <link href="<?php echo base_url()?>assets/bootstrap/css/style.css" rel="stylesheet" type="text/css" />
@@ -539,6 +542,9 @@
         <script src="<?php echo base_url()?>assets/jquery-slimscroll/jquery.slimscroll.js"></script>
         <script src="<?php echo base_url()?>assets/jquery-blockui/jquery.blockUI.js"></script>
 
+        <script src="<?php echo base_url()?>assets/sweet-alert/sweet-alert.min.js"></script>
+        <script src="<?php echo base_url()?>assets/sweet-alert/sweet-alert.init.js"></script>
+
 
         <!-- CUSTOM JS -->
         <script src="<?php echo base_url()?>assets/js/jquery.app.js"></script>
@@ -703,26 +709,53 @@
 
             function delete_person(id)
             {
-                if(confirm('Are you sure delete this data?'))
-                {
-                    // ajax delete data to database
-                    $.ajax({
-                        url : "<?php echo site_url('person/ajax_delete')?>/"+id,
-                        type: "POST",
-                        dataType: "JSON",
-                        success: function(data)
-                        {
-                            //if success reload ajax table
-                            $('#modal_form').modal('hide');
-                            reload_table();
-                        },
-                        error: function (jqXHR, textStatus, errorThrown)
-                        {
-                            alert('Error deleting data');
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this imaginary file!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    })
+                    .then(
+                        function (tes) {
+                            if (tes) {
+                                $.ajax({
+                                    url: "<?php echo site_url('person/ajax_delete')?>/"+id,
+                                    type: 'POST',
+                                    dataType: "JSON",
+                                    success: function (data) {
+                                        swal({title: 'Informasi simpan!',
+                                            text: "Data berhasil disimpan.",
+                                            type: "success",
+                                            showConfirmButton: false
+                                        });
+                                        $('#modal_form').modal('hide');
+                                        reload_table();
+                                    }
+                                });
+                            }
                         }
-                    });
+                    );
+                // if(confirm('Are you sure delete this data?'))
+                // {
+                //     // ajax delete data to database
+                //     $.ajax({
+                //         url : "<?php echo site_url('person/ajax_delete')?>/"+id,
+                //         type: "POST",
+                //         dataType: "JSON",
+                //         success: function(data)
+                //         {
+                //             //if success reload ajax table
+                //             $('#modal_form').modal('hide');
+                //             reload_table();
+                //         },
+                //         error: function (jqXHR, textStatus, errorThrown)
+                //         {
+                //             alert('Error deleting data');
+                //         }
+                //     });
 
-                }
+                // }
             }
         </script>
         
