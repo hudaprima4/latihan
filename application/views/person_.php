@@ -711,51 +711,36 @@
             {
                 swal({
                     title: "Are you sure?",
-                    text: "Once deleted, you will not be able to recover this imaginary file!",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
-                    })
-                    .then(
-                        function (tes) {
-                            if (tes) {
-                                $.ajax({
-                                    url: "<?php echo site_url('person/ajax_delete')?>/"+id,
-                                    type: 'POST',
-                                    dataType: "JSON",
-                                    success: function (data) {
-                                        swal({title: 'Informasi simpan!',
-                                            text: "Data berhasil disimpan.",
-                                            type: "success",
-                                            showConfirmButton: false
-                                        });
-                                        $('#modal_form').modal('hide');
-                                        reload_table();
-                                    }
-                                });
+                    text: "You will not be able to recover this imaginary file!",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "Yes, delete it!",
+                    cancelButtonText: "No, cancel plx!",
+                    closeOnConfirm: false,
+                    closeOnCancel: false
+                }, function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url : "<?php echo site_url('person/ajax_delete')?>/"+id,
+                            type: "POST",
+                            dataType: "JSON",
+                            success: function(data)
+                            {
+                                //if success reload ajax table
+                                $('#modal_form').modal('hide');
+                                reload_table();
+                                swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                            },
+                            error: function (jqXHR, textStatus, errorThrown)
+                            {
+                                alert('Error deleting data');
                             }
-                        }
-                    );
-                // if(confirm('Are you sure delete this data?'))
-                // {
-                //     // ajax delete data to database
-                //     $.ajax({
-                //         url : "<?php echo site_url('person/ajax_delete')?>/"+id,
-                //         type: "POST",
-                //         dataType: "JSON",
-                //         success: function(data)
-                //         {
-                //             //if success reload ajax table
-                //             $('#modal_form').modal('hide');
-                //             reload_table();
-                //         },
-                //         error: function (jqXHR, textStatus, errorThrown)
-                //         {
-                //             alert('Error deleting data');
-                //         }
-                //     });
-
-                // }
+                        });
+                    } else {
+                        swal("Cancelled", "Your imaginary file is safe :)", "error");
+                    }
+                });
             }
         </script>
         
