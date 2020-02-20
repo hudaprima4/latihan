@@ -4,7 +4,7 @@
                                                 <table id="table" class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <th>First Name</th>
+                                                            <th>First Names</th>
                                                             <th>Last Name</th>
                                                             <th>Gender</th>
                                                             <th>Address</th>
