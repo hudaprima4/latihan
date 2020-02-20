@@ -13,7 +13,8 @@ class Person extends CI_Controller {
 	{
 		$this->load->helper('url');
 		// $this->load->view('person_view');
-		$this->load->view('person_');
+		$data['content'] = 'person_.php';
+		$this->load->view('layout',$data);
 	}
 
 	public function ajax_list()
@@ -30,10 +31,6 @@ class Person extends CI_Controller {
 			$row[] = $person->address;
 			$row[] = $person->dob;
 
-			//add html for action
-			// $row[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#con-close-modal">Edit</button>
-			// 	  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_person('."'".$person->id."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
-		
 			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" id="edite" onclick="edit_person('."'".$person->id."'".')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
 				  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" id="sa-params" onclick="delete_person('."'".$person->id."'".')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
 		
