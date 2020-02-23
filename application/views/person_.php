@@ -206,7 +206,7 @@
                     },
                     error: function (jqXHR, textStatus, errorThrown)
                     {
-                        alert('Error deleting data');
+                    alert('Error deleting data');
                     }
                 });
             } else {

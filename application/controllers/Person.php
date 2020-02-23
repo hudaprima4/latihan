@@ -17,6 +17,11 @@ class Person extends CI_Controller {
 		$this->load->view('layout',$data);
 	}
 
+	function login()
+	{
+		$this->load->view('login');
+	}
+
 	public function ajax_list()
 	{
 		$list = $this->person->get_datatables();
